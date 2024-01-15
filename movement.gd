@@ -1,9 +1,10 @@
 extends CharacterBody3D
 
-var gravity = 3
+var gravity = 1
 var speed = 4
 var jump_speed =  6.0
 var mouse_sensitivity = 0.002
+@onready var camera = $Camera3D
 
 func get_input():
 	var input = Input.get_vector("strafe_left", "strafe_right", "move_forward", "move_back")
@@ -19,5 +20,7 @@ func _physics_process(delta):
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * mouse_sensitivity)
+		camera.rotate_x(-event.relative.y * mouse_sensitivity)
+		
 	if event.is_action("jump") and is_on_floor():
 		velocity.y = jump_speed
