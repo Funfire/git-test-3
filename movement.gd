@@ -4,13 +4,10 @@ var speed = 4
 var gravity = -9.8
 var jump_speed = 6.0
 var mouse_sensitivity = 0.002
-var paused = false
-
 @onready var camera = $Camera3D
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
 
 func get_input_direction():
 	var input_dir = Vector3.ZERO
@@ -32,23 +29,6 @@ func _physics_process(delta):
 	else:
 		horizontal_velocity.y += gravity * delta
 
-	if is_on_floor() and Input.is_action_just_pressed("crouch"):
-		print("hey")
-		
-	if Input.is_action_just_pressed("exit_button"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		print("paused")
-		
-
-	if Input.is_action_just_pressed("click"):
-		print("hi")
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-			print("unpaused")
-
-
-
-		
 	velocity = horizontal_velocity
 	move_and_slide()
 
@@ -56,3 +36,8 @@ func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		camera.rotate_x(-event.relative.y * mouse_sensitivity)
+
+
+func _on_collsision_area_area_entered(area):
+	if area.name == "enemyCollision":
+		print('hit')
