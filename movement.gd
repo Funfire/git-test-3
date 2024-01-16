@@ -36,3 +36,8 @@ func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		camera.rotate_x(-event.relative.y * mouse_sensitivity)
+
+
+func _on_collsision_area_area_entered(area):
+	if area.name == "enemyCollision":
+		print('hit')
